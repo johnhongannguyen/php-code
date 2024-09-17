@@ -3,10 +3,11 @@
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 $routes = [
-'/'=> 'controllers/index.php',
-'/about'=> 'controllers/about.php',
-'/contact'=> 'controllers/contact.php',
-'/mission'=> 'controllers/mission.php'
+    '/'=> 'controllers/index.php',
+    '/about'=> 'controllers/about.php',
+    '/notes'=> 'controllers/notes.php',
+    '/contact'=> 'controllers/contact.php',
+    '/mission'=> 'controllers/mission.php'
 
 ];
 
@@ -21,7 +22,7 @@ abort(404);
 }
 
 function abort($code = 404){
-http_response_code(404);
+http_response_code($code);
 require "views/$code.php";
 
 die();
