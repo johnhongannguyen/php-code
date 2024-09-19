@@ -3,6 +3,7 @@
 // Connection to the database, and execute a query
 class Database {
     public $connection;
+    public $statement;
     public function __construct($config,$username = 'root', $password= 'mysql') {
 
         // connection string
@@ -14,16 +15,30 @@ class Database {
         ]);
     }
     public function query($query, $params=[]) {
-        // initialize PDO
-
-
         // prepare query for printing from MySQL
-        $statement = $this->connection->prepare($query);
+        $this->statement = $this->connection->prepare($query);
         // execute that query
-        $statement->execute($params);
+        $this->statement->execute($params);
         // fetch all the result
-        return $statement;
+        return $this;
+    }
 
+    public function get(){
+        return $this->statement->fetchAll();
+    }
 
+    public function find(){
+        // statement-> fetch()
+        return $this->statement->fetch();
+
+    }
+    public function findOrFail(){
+        $result = $this->find();
+
+        if(! $result){
+            abort();
+
+        }
+        return $result;
     }
 }
