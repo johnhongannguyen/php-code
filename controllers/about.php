@@ -5,6 +5,9 @@ $heading = "About";
 
 // load the view
 
-require "views/about.view.php";
+view("about.view.php", [
+    'heading' => 'About Us'
+]);
+
 
 
