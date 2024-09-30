@@ -1,5 +1,6 @@
 <?php
- namespace Core;
+
+namespace Core;
 class Router{
     protected $routes = [];
 
@@ -7,7 +8,7 @@ class Router{
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
-            'method'=> 'GET'
+            'method'=> $method
         ];
 
     }
