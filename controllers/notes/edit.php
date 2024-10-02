@@ -8,21 +8,19 @@ $currentUserId = 1;
 
 
 $note = $db->query('SELECT * FROM notes WHERE id = :id', [
-        'id' => $_GET['id']
-    ])->findOrFail();
+    'id' => $_GET['id']
+])->findOrFail();
 
 
 authorize($note['user_id'] == $currentUserId);
 
 
-view("notes/show.view.php", [
-        'heading' => 'Note',
-        'note' => $note
-    ]);
+view("notes/edit.view.php", [
+    'heading' => 'Edit Note',
+    'errors' => [],
+    'note' => $note
+]);
 
-
-
-
-
-
-
+// redirect the user
+header('Location:/notes');
+die();
