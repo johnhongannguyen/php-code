@@ -1,6 +1,6 @@
 <?php
 
-$heading = "About";
+
 
 
 // load the view

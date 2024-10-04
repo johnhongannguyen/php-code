@@ -1,6 +1,5 @@
 <?php
 
-$heading = "Mission";
 
 // load the view
 

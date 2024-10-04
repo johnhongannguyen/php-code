@@ -1,6 +1,6 @@
 <?php
 
-$heading = "Contact";
+
 
 // load the view
 
