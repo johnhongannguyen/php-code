@@ -1,6 +1,9 @@
 <?php
 
 namespace Core;
+use Core\Middleware\Middleware;
+use Exception;
+
 class Router{
     protected $routes = [];
 
@@ -11,7 +14,7 @@ class Router{
             'method'=> $method,
             'middleware' => null
         ];
-            return $this;
+        return $this;
     }
 
     public function get ($uri,$controller){
@@ -38,25 +41,15 @@ class Router{
         return $this;
     }
 
+    /**
+     * @throws Exception
+     */
     public function route($uri, $method){
         foreach($this->routes as $route ){
             if($route['uri'] == $uri && $route['method'] == strtoupper($method)){
                 // apply the middleware
-                if($route['middleware'] == 'guest'){
-                    if($_SESSION['user']?? false){
-                        header('location:/');
-                        exit();
-                    }
-                }
-
-                if($route['middleware'] == 'auth'){
-                    if(! $_SESSION['user']?? false){
-                        header('location:/');
-                        exit();
-                    }
-                }
-
-                return require base_path($route['controller']);
+                Middleware::resolve($route['middleware']);
+                return require base_path('Http/controllers/' . $route['controller']);
             }
         }
 

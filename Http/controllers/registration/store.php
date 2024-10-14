@@ -12,7 +12,7 @@ if(!Validator::email($email)){
 }
 
 if(!Validator::string($password,7, 255)){
-    $errors['password'] = 'Please provide a valid password';
+    $errors['password'] = 'Please provide a valid password at least 7 letters';
 }
 
 if(!empty($errors)){
@@ -37,12 +37,10 @@ if($user){
 //no -> save one to the database, then log the user in, and redirect
     $db->query('INSERT INTO users(email,password) VALUES(:email,:password)',[
         'email'=> $email,
-        'password'=>$password
+        'password'=> password_hash($password,PASSWORD_BCRYPT)
     ]);
     // mark that the user has logged in
-    $_SESSION['user'] = [
-        'email'=>$email
-    ];
+   login($user);
 
     header('location:/');
     exit();
