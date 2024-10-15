@@ -34,7 +34,7 @@ function view($path, $attributes = []){
     require base_path('views/' . $path);
 }
 
-function redirect($path){
+function redirect($path):void{
     header("location: {$path}");
     exit();
 }
